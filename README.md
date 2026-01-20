@@ -13,15 +13,6 @@ This repository serves two complementary purposes:
 
 ---
 
-## Repository Structure
-
-├── adk_lab/ # Reusable ADK utilities (Python package)
-├── agentic_patterns/ # Reference implementations of agentic patterns
-├── pyproject.toml
-└── README.md
-
-
----
 
 ## adk_lab (Python package)
 
@@ -33,6 +24,8 @@ Typical usage:
 
 ```python
 from adk_lab.utilities import show_agent_result
+```
+
 
 The package is intentionally small and focused, and targets
 Google ADK version 1.21+ semantics.
