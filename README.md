@@ -32,26 +32,29 @@ Google ADK version 1.21+ semantics.
 
 #For local development or experimentation:
 
+```python
 pip install -e .
+```
 
 #Install from Github
-
+```python
 pip install git+https://github.com/YOURNAME/adk-lab.git
+```
 
 ## agentic_patterns (reference implementations)
 
 The agentic_patterns/ directory contains runnable reference
 implementations of common agentic design patterns, including:
 
-Session and state management
+*Session and state management
 
-Routing and delegation
+*Routing and delegation
 
-Sequential chaining and composition
+*Sequential chaining and composition
 
-Reflection / critique loops
+*Reflection / critique loops
 
-Parallel fan-out / fan-in execution
+*Parallel fan-out / fan-in execution
 
 
 This repository is:
