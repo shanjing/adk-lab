@@ -1,0 +1,312 @@
+agentic_patterns % python exception_handling/exception_handling.py
+<module> 33 | Using SQLite database at: /Users/shanjing/workspace/adk-lab/agentic_patterns/exception_handling/exception_handling.db
+generate_content_async 181 | Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.GEMINI_API, stream: False
+generate_content 7024 | AFC is enabled with max remote calls: 10.
+_send_single_request 1740 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+generate_content_async 246 | Response received from the model.
+main 137 | The current session.state is:
+main 138 | {'Introduction': 'This is a test for location_app.'}
+
+
+main 140 | The event #1 is:
+main 141 | {
+  "model_version": "gemini-2.5-flash",
+  "content": {
+    "parts": [
+      {
+        "media_resolution": null,
+        "code_execution_result": null,
+        "executable_code": null,
+        "file_data": null,
+        "function_call": null,
+        "function_response": null,
+        "inline_data": null,
+        "text": "{\"location_result\": {\"title\": \"1600 Amphitheatre Pkwy\", \"information\": \"**About:**\\n\\n* **Type:** Building\\n* **Address:** 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\\n* **Location:** 37.443790, -122.086990\\n\", \"uri\": \"https://maps.google.com/?cid=2639199469044993315\"}, \"location_provided_by\": \"primary_handler\"}",
+        "thought": null,
+        "thought_signature": null,
+        "video_metadata": null
+      }
+    ],
+    "role": "model"
+  },
+  "grounding_metadata": {
+    "google_maps_widget_context_token": null,
+    "grounding_chunks": [
+      {
+        "maps": {
+          "place_answer_sources": null,
+          "place_id": "places/ChIJ2Z2idB66j4ARI43TG-9RoCQ",
+          "text": null,
+          "title": "1600 Amphitheatre Pkwy",
+          "uri": "https://maps.google.com/?cid=2639199469044993315"
+        },
+        "retrieved_context": null,
+        "web": null
+      }
+    ],
+    "grounding_supports": null,
+    "retrieval_metadata": null,
+    "retrieval_queries": null,
+    "search_entry_point": null,
+    "source_flagging_uris": null,
+    "web_search_queries": [
+      "1600 Amphitheatre Parkway, Mountain View, CA"
+    ]
+  },
+  "partial": null,
+  "turn_complete": null,
+  "finish_reason": "STOP",
+  "error_code": null,
+  "error_message": null,
+  "interrupted": null,
+  "custom_metadata": null,
+  "usage_metadata": {
+    "cache_tokens_details": null,
+    "cached_content_token_count": null,
+    "candidates_token_count": 189,
+    "candidates_tokens_details": null,
+    "prompt_token_count": 144,
+    "prompt_tokens_details": [
+      {
+        "modality": "TEXT",
+        "token_count": 144
+      }
+    ],
+    "thoughts_token_count": 339,
+    "tool_use_prompt_token_count": 643,
+    "tool_use_prompt_tokens_details": [
+      {
+        "modality": "TEXT",
+        "token_count": 643
+      }
+    ],
+    "total_token_count": 1315,
+    "traffic_type": null
+  },
+  "live_session_resumption_update": null,
+  "input_transcription": null,
+  "output_transcription": null,
+  "avg_logprobs": null,
+  "logprobs_result": null,
+  "cache_metadata": null,
+  "citation_metadata": null,
+  "interaction_id": null,
+  "invocation_id": "e-5c918c46-265f-4c11-ba0a-3c66be3ed62c",
+  "author": "primary_handler",
+  "actions": {
+    "skip_summarization": null,
+    "state_delta": {},
+    "artifact_delta": {},
+    "transfer_to_agent": null,
+    "escalate": null,
+    "requested_auth_configs": {},
+    "requested_tool_confirmations": {},
+    "compaction": null,
+    "end_of_agent": null,
+    "agent_state": null,
+    "rewind_before_invocation_id": null
+  },
+  "long_running_tool_ids": null,
+  "branch": null,
+  "id": "7dbbe806-16ed-4ab7-925a-509be96f6ca8",
+  "timestamp": 1768957450.995199
+}
+
+
+
+
+
+`
+main 147 | {"location_result": {"title": "1600 Amphitheatre Pkwy", "information": "**About:**\n\n* **Type:** Building\n* **Address:** 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\n* **Location:** 37.443790, -122.086990\n", "uri": "https://maps.google.com/?cid=2639199469044993315"}, "location_provided_by": "primary_handler"}
+generate_content_async 181 | Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.GEMINI_API, stream: False
+generate_content 7024 | AFC is enabled with max remote calls: 10.
+_send_single_request 1740 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+generate_content_async 246 | Response received from the model.
+main 137 | The current session.state is:
+main 138 | {'Introduction': 'This is a test for location_app.'}
+
+
+
+main 140 | The event #2 is:
+main 141 | {
+  "model_version": "gemini-2.5-flash",
+  "content": {
+    "parts": [
+      {
+        "media_resolution": null,
+        "code_execution_result": null,
+        "executable_code": null,
+        "file_data": null,
+        "function_call": null,
+        "function_response": null,
+        "inline_data": null,
+        "text": "1600 Amphitheatre Parkway, Mountain View, CA, is located at the address 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA. The coordinates are 37.443790, -122.086990.\n\nYou can find more information and view it on Google Maps here: https://maps.google.com/?cid=2639199469044993315",
+        "thought": null,
+        "thought_signature": null,
+        "video_metadata": null
+      }
+    ],
+    "role": "model"
+  },
+  "grounding_metadata": {
+    "google_maps_widget_context_token": null,
+    "grounding_chunks": null,
+    "grounding_supports": null,
+    "retrieval_metadata": null,
+    "retrieval_queries": null,
+    "search_entry_point": null,
+    "source_flagging_uris": null,
+    "web_search_queries": null
+  },
+  "partial": null,
+  "turn_complete": null,
+  "finish_reason": "STOP",
+  "error_code": null,
+  "error_message": null,
+  "interrupted": null,
+  "custom_metadata": null,
+  "usage_metadata": {
+    "cache_tokens_details": null,
+    "cached_content_token_count": null,
+    "candidates_token_count": 130,
+    "candidates_tokens_details": null,
+    "prompt_token_count": 301,
+    "prompt_tokens_details": [
+      {
+        "modality": "TEXT",
+        "token_count": 301
+      }
+    ],
+    "thoughts_token_count": 616,
+    "tool_use_prompt_token_count": 602,
+    "tool_use_prompt_tokens_details": [
+      {
+        "modality": "TEXT",
+        "token_count": 602
+      }
+    ],
+    "total_token_count": 1649,
+    "traffic_type": null
+  },
+  "live_session_resumption_update": null,
+  "input_transcription": null,
+  "output_transcription": null,
+  "avg_logprobs": null,
+  "logprobs_result": null,
+  "cache_metadata": null,
+  "citation_metadata": null,
+  "interaction_id": null,
+  "invocation_id": "e-5c918c46-265f-4c11-ba0a-3c66be3ed62c",
+  "author": "fallback_handler",
+  "actions": {
+    "skip_summarization": null,
+    "state_delta": {},
+    "artifact_delta": {},
+    "transfer_to_agent": null,
+    "escalate": null,
+    "requested_auth_configs": {},
+    "requested_tool_confirmations": {},
+    "compaction": null,
+    "end_of_agent": null,
+    "agent_state": null,
+    "rewind_before_invocation_id": null
+  },
+  "long_running_tool_ids": null,
+  "branch": null,
+  "id": "125a96d0-691f-4406-9896-474454ecb1b2",
+  "timestamp": 1768957455.286133
+}
+main 147 | 1600 Amphitheatre Parkway, Mountain View, CA, is located at the address 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA. The coordinates are 37.443790, -122.086990.
+
+You can find more information and view it on Google Maps here: https://maps.google.com/?cid=2639199469044993315
+generate_content_async 181 | Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.GEMINI_API, stream: False
+generate_content 7024 | AFC is enabled with max remote calls: 10.
+_send_single_request 1740 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+generate_content_async 246 | Response received from the model.
+main 137 | The current session.state is:
+main 138 | {'Introduction': 'This is a test for location_app.'}
+
+
+main 140 | The event #3 is:
+main 141 | {
+  "model_version": "gemini-2.5-flash",
+  "content": {
+    "parts": [
+      {
+        "media_resolution": null,
+        "code_execution_result": null,
+        "executable_code": null,
+        "file_data": null,
+        "function_call": null,
+        "function_response": null,
+        "inline_data": null,
+        "text": "The location of 1600 Amphitheatre Parkway, Mountain View, CA is:\n\n*   **Address:** 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\n*   **Coordinates:** 37.443790, -122.086990\n*   **Google Maps Link:** https://maps.google.com/?cid=2639199469044993315\n\nThis information was retrieved by the `primary_handler`.",
+        "thought": null,
+        "thought_signature": null,
+        "video_metadata": null
+      }
+    ],
+    "role": "model"
+  },
+  "grounding_metadata": null,
+  "partial": null,
+  "turn_complete": null,
+  "finish_reason": "STOP",
+  "error_code": null,
+  "error_message": null,
+  "interrupted": null,
+  "custom_metadata": null,
+  "usage_metadata": {
+    "cache_tokens_details": null,
+    "cached_content_token_count": null,
+    "candidates_token_count": 126,
+    "candidates_tokens_details": null,
+    "prompt_token_count": 364,
+    "prompt_tokens_details": [
+      {
+        "modality": "TEXT",
+        "token_count": 364
+      }
+    ],
+    "thoughts_token_count": 263,
+    "tool_use_prompt_token_count": null,
+    "tool_use_prompt_tokens_details": null,
+    "total_token_count": 753,
+    "traffic_type": null
+  },
+  "live_session_resumption_update": null,
+  "input_transcription": null,
+  "output_transcription": null,
+  "avg_logprobs": null,
+  "logprobs_result": null,
+  "cache_metadata": null,
+  "citation_metadata": null,
+  "interaction_id": null,
+  "invocation_id": "e-5c918c46-265f-4c11-ba0a-3c66be3ed62c",
+  "author": "response_agent",
+  "actions": {
+    "skip_summarization": null,
+    "state_delta": {},
+    "artifact_delta": {},
+    "transfer_to_agent": null,
+    "escalate": null,
+    "requested_auth_configs": {},
+    "requested_tool_confirmations": {},
+    "compaction": null,
+    "end_of_agent": null,
+    "agent_state": null,
+    "rewind_before_invocation_id": null
+  },
+  "long_running_tool_ids": null,
+  "branch": null,
+  "id": "76383d3e-569e-4dde-80af-17bbcaf2297d",
+  "timestamp": 1768957459.947686
+}
+main 147 | The location of 1600 Amphitheatre Parkway, Mountain View, CA is:
+
+*   **Address:** 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+*   **Coordinates:** 37.443790, -122.086990
+*   **Google Maps Link:** https://maps.google.com/?cid=2639199469044993315
+
+This information was retrieved by the `primary_handler`.
+
