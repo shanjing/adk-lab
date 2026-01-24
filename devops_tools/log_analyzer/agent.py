@@ -183,3 +183,6 @@ root_agent = SequentialAgent(
     name="log_analyzer",
     sub_agents=[log_investigator_agent, sre_agent, email_notifier_agent]
 )
+
+# Optional alias for runners that look for `agent`.
+agent = root_agent

@@ -1,4 +1,4 @@
-# Agentic Patterns (Google ADK)
+# Agentic Patterns
 
 This directory contains **runnable reference implementations of common agentic design patterns**
 built using **Google ADK (1.21+)**.
