@@ -143,6 +143,8 @@ log_investigator_agent = Agent(
     You are an Log Investigator. 
     Analyze the user request and use 'fetch_k8s_logs' to find errors.
     Summarize the error concisely for the next agent.
+    Note, the problematic pod is {problematic_pod} in namespace {problematic_namespace},
+    if this pod has issues again, don't try to fix it, just report the issue to the SRE team.
     """,
     tools=[fetch_k8s_logs],
     input_schema=LogQuerySchema, # parse user chat input into LogQuerySchema, optional 

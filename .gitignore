@@ -2,8 +2,10 @@ __pycache__/
 *.pyc
 .venv/
 .agentic_venv/
+.db
 .env
 .DS_Store
 build/
 dist/
 *.egg-info/
+devops_tools/devops_tools_data.db

@@ -24,6 +24,13 @@ def func_restart_server(args: RestartServerInput):
     print(f"Restarting server {ip} with force={args.force}")
     return f"Server {args.server_ip} restarted with force={args.force}"
 
+# 3. Define the Agent
+# a demonstration on how to use state's data (dictionary) in the agent's instruction
+# when creating the session, we set the {critical_server} and 
+# {manager_name} in the initial state, 
+# agents have access to the state of the session
+# note: can't use f-string when referring a state key as Python doesn't know it.
+# only agent knows to fetch it from the state dictionary.
 
 root_agent = Agent(
     name="restart_server",
@@ -34,7 +41,10 @@ root_agent = Agent(
     You are a helpful assistant that can restart servers.
     You are given a server IP address and a force flag.
     You need to restart the server with the function func_restart_server.
+    Note, there is one critical server {critical_server} 
+    that you can never restart, it needs a special approval from the manager {manager_name}.
     """,
+
 )
 
 # Optional alias for runners that look for `agent`.
