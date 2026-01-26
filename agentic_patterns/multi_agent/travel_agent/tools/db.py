@@ -30,6 +30,9 @@ class SqlitePolicyService:
             conn.commit()
 
     def has_visited(self, user_id: str, city: str) -> bool:
+        """
+        Only allow one trip per city.
+        """
         city_norm = city.strip().lower()
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
@@ -51,4 +54,4 @@ class SqlitePolicyService:
                 conn.commit()
             logger.info(f"MEMORY: Persisted trip to '{city}' for {user_id}")
         except sqlite3.IntegrityError:
-            logger.warning(f"MEMORY: Duplicate trip write blocked for '{city}'")
+            logger.warning(f"MEMORY: Duplicate trip write blocked for '{city}' on '{date}'")
