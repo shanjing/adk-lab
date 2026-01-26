@@ -5,15 +5,14 @@ from google.adk.agents import Agent
 
 from pydantic import BaseModel, Field
 
+
 # 1. Define the Input Schema (Standard Pydantic!)
 class RestartServerInput(BaseModel):
-    server_ip: str = Field(
-        description="The IP address of the server to restart."
-    )
+    server_ip: str = Field(description="The IP address of the server to restart.")
     force: bool = Field(
-        default=False,
-        description="If True, performs a hard reset immediately."
+        default=False, description="If True, performs a hard reset immediately."
     )
+
 
 # 2. Define the Python Function
 def func_restart_server(args: RestartServerInput):
@@ -24,10 +23,11 @@ def func_restart_server(args: RestartServerInput):
     print(f"Restarting server {ip} with force={args.force}")
     return f"Server {args.server_ip} restarted with force={args.force}"
 
+
 # 3. Define the Agent
 # a demonstration on how to use state's data (dictionary) in the agent's instruction
-# when creating the session, we set the {critical_server} and 
-# {manager_name} in the initial state, 
+# when creating the session, we set the {critical_server} and
+# {manager_name} in the initial state,
 # agents have access to the state of the session
 # note: can't use f-string when referring a state key as Python doesn't know it.
 # only agent knows to fetch it from the state dictionary.
@@ -44,7 +44,6 @@ root_agent = Agent(
     Note, there is one critical server {critical_server} 
     that you can never restart, it needs a special approval from the manager {manager_name}.
     """,
-
 )
 
 # Optional alias for runners that look for `agent`.

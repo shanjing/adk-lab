@@ -2,6 +2,7 @@ import google.adk
 
 MIN_ADK_VERSION = (1, 21)
 
+
 def assert_adk_version():
     version = tuple(map(int, google.adk.__version__.split(".")))
     if version < MIN_ADK_VERSION:

@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ValidationError
 import datetime
 
+
 class User(BaseModel):
     name: str
     full_name: str | None = None

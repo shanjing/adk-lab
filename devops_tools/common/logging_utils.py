@@ -84,8 +84,16 @@ def format_event_actions_for_log(actions: Any) -> str:
             return json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True)
 
         # Derived summaries (keep only keys, not values).
-        state_delta = payload.get("state_delta") if isinstance(payload.get("state_delta"), dict) else None
-        artifact_delta = payload.get("artifact_delta") if isinstance(payload.get("artifact_delta"), dict) else None
+        state_delta = (
+            payload.get("state_delta")
+            if isinstance(payload.get("state_delta"), dict)
+            else None
+        )
+        artifact_delta = (
+            payload.get("artifact_delta")
+            if isinstance(payload.get("artifact_delta"), dict)
+            else None
+        )
 
         filtered: dict[str, Any] = {}
         for k, v in payload.items():
@@ -134,11 +142,15 @@ def format_event_summary_for_log(event: Any) -> str:
     transfer_to_agent = getattr(actions, "transfer_to_agent", None) if actions else None
     state_delta = getattr(actions, "state_delta", None) if actions else None
     artifact_delta = getattr(actions, "artifact_delta", None) if actions else None
-    skip_summarization = getattr(actions, "skip_summarization", None) if actions else None
+    skip_summarization = (
+        getattr(actions, "skip_summarization", None) if actions else None
+    )
     end_of_agent = getattr(actions, "end_of_agent", None) if actions else None
 
     state_keys = list(state_delta.keys()) if isinstance(state_delta, dict) else []
-    artifact_keys = list(artifact_delta.keys()) if isinstance(artifact_delta, dict) else []
+    artifact_keys = (
+        list(artifact_delta.keys()) if isinstance(artifact_delta, dict) else []
+    )
 
     final = None
     if hasattr(event, "is_final_response"):
@@ -246,4 +258,3 @@ def format_agent_flow_for_log(root_agent: Any) -> str:
         return _name(agent)
 
     return _fmt(root_agent, top_level=True)
-

@@ -1,1 +1,1 @@
-AI_MODEL="gemini-2.5-flash"
+AI_MODEL = "gemini-2.5-flash"

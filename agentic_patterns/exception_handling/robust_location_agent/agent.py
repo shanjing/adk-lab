@@ -13,6 +13,7 @@ from google.genai import types
 from google.adk.tools import google_maps_grounding, google_search
 
 import logging
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(funcName)s %(lineno)d | %(message)s",
@@ -82,7 +83,7 @@ response_agent = LlmAgent(
     instruction=(
         "Review state['location_result'].\n"
         "\n"
-        "- If it exists, present the information clearly ,concisely and" 
+        "- If it exists, present the information clearly ,concisely and"
         "state the source of the information.\n"
         "- If it does not exist or is empty, apologize and state that the "
         "location could not be retrieved."
