@@ -1,6 +1,7 @@
 from google.adk.agents import Agent
 from datetime import datetime
 
+
 def get_current_time() -> dict:
     """
     Get the current time in the format YYYY-MM-DD HH:MM:SS
@@ -8,6 +9,7 @@ def get_current_time() -> dict:
     return {
         "current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }
+
 
 root_agent = Agent(
     name="current_time_agent",

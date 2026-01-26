@@ -6,15 +6,16 @@ from google.adk.agents import Agent
 from pydantic import BaseModel, Field
 from devtools import debug
 
+
 # 1. Define the Input Schema (Standard Pydantic!)
 class RestartServerInput(BaseModel):
     server_ip: IPv4Address = Field(
         description="The IP address of the server to restart."
     )
     force: bool = Field(
-        default=False,
-        description="If True, performs a hard reset immediately."
+        default=False, description="If True, performs a hard reset immediately."
     )
+
 
 # 2. Define the Python Function
 def my_restart_python_function(args: RestartServerInput):
@@ -31,6 +32,6 @@ root_agent = Agent(
     model="gemini-2.0-flash",
     description="A root agent that can restart servers.",
     tools=[restart_tool],
-    instruction="You are a helpful assistant that can restart servers."
+    instruction="You are a helpful assistant that can restart servers.",
 )
 debug(root_agent)

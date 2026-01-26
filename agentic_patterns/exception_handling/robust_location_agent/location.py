@@ -13,6 +13,7 @@ from google.genai import types
 from google.adk.tools import google_maps_grounding, google_search
 
 import logging
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(funcName)s %(lineno)d | %(message)s",
@@ -82,7 +83,7 @@ response_agent = LlmAgent(
     instruction=(
         "Review state['location_result'].\n"
         "\n"
-        "- If it exists, present the information clearly ,concisely and" 
+        "- If it exists, present the information clearly ,concisely and"
         "state the source of the information.\n"
         "- If it does not exist or is empty, apologize and state that the "
         "location could not be retrieved."
@@ -101,6 +102,7 @@ robust_location_agent = SequentialAgent(
     ],
 )
 
+
 # --------------------------------------------------
 # main(): Runner execution
 # --------------------------------------------------
@@ -116,12 +118,16 @@ async def main() -> None:
         app_name="location_app",
         user_id=user_id,
         session_id=session_id,
-        state={"Introduction": "This is a test for location_app."}
+        state={"Introduction": "This is a test for location_app."},
     )
 
     user_message = types.Content(
         role="user",
-        parts=[types.Part(text="Find the exact location of 1600 Amphitheatre Parkway, Mountain View, CA")]
+        parts=[
+            types.Part(
+                text="Find the exact location of 1600 Amphitheatre Parkway, Mountain View, CA"
+            )
+        ],
     )
 
     async for event in runner.run_async(
@@ -141,11 +147,8 @@ async def main() -> None:
         logger.info(event.model_dump_json(indent=2))
 
         if event.is_final_response() and event.content and event.content.parts:
-            final_text = "".join(
-                part.text for part in event.content.parts if part.text
-            )
+            final_text = "".join(part.text for part in event.content.parts if part.text)
             logger.info(final_text)
-
 
 
 if __name__ == "__main__":

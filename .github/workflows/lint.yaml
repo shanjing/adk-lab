@@ -1,0 +1,14 @@
+name: Python Auto-Format Check
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Ruff
+        run: pip install ruff
+      - name: Check Formatting
+        # 'format --check' only looks at whitespace/newlines/indents
+        run: ruff format --check .

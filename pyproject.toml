@@ -15,3 +15,18 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+# We only care about the most basic syntax errors (F) and Import sorting (I)
+# Removing 'E' (Style) and 'W' (Warnings) to reduce noise
+select = ["F", "I"] 
+ignore = ["F401"] # Ignore unused imports so labs don't fail
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
