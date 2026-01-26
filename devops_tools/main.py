@@ -43,7 +43,12 @@ def _extract_final_text_from_event(event) -> str:
     return ""
 
 
-async def run_agent(agent_name: str, input_text: str, debug: bool) -> str:
+async def run_agent(
+        agent_name: str,
+        input_text: str,
+        initial_state: dict | None = None,
+        debug: bool = False) -> str:
+
     loader = _agent_loader()
     agent_or_app = loader.load_agent(agent_name)
 
@@ -55,16 +60,18 @@ async def run_agent(agent_name: str, input_text: str, debug: bool) -> str:
     session_service = _session_service()
     runner = Runner(app=app, session_service=session_service)
 
+    # This prevents "NoneType" errors in the session service
+    safe_initial_state = initial_state if initial_state is not None else {}
+
     session_id = str(uuid.uuid4())
     user_id = "local-user"
     user_message = _build_user_message(input_text)
-    initial_state = {"user_name": "John Doe", "application": "devops_tools"}
 
     await session_service.create_session(
         app_name=app.name, 
         user_id=user_id, 
         session_id=session_id, 
-        state=initial_state
+        state=safe_initial_state
     )
     final_text = ""
     async for event in runner.run_async(
@@ -118,6 +125,7 @@ def list_agents() -> None:
 @click.option(
     "--debug",
     "debug",
+    is_flag=True,
     default=False,
     help="Enable debug mode.",
 )
@@ -127,8 +135,16 @@ def run_command(agent_name: str, input_text: str | None, debug: bool) -> None:
         input_text = click.get_text_stream("stdin").read().strip()
     if not input_text:
         raise click.ClickException("Input text is required.")
-
-    final_text = asyncio.run(run_agent(agent_name, input_text, debug))
+    initial_state = {
+        "user_name": "John Doe",
+        "manager_name": "Michael Douglas",
+        "application": "devops_tools",
+        "environment": "development",
+        "critical_server": "192.168.3.100",
+        "problematic_pod": "payment-420",
+        "problematic_namespace": "payment"
+    }
+    final_text = asyncio.run(run_agent(agent_name, input_text, initial_state, debug))
     click.echo(final_text)
 
 
