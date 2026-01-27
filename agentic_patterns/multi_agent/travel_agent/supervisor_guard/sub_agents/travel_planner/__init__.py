@@ -1,3 +1,3 @@
-from .agent import travel_agent
+from .agent import travel_planner
 
-__all__ = ["travel_agent"]
+__all__ = ["travel_planner"]
