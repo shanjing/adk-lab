@@ -1,6 +1,7 @@
 import sqlite3
-from tools.logging_utils import logger
+import logging
 
+logger = logging.getLogger(__name__)
 
 # -----------------------------
 # 1. PERSISTENT MEMORY SERVICE (SQLite)

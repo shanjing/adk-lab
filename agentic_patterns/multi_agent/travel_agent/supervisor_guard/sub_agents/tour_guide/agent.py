@@ -10,7 +10,7 @@ from tools.config import AI_MODEL
 tour_guide = LlmAgent(
     name="tour_guide",
     model=AI_MODEL,
-    description="A specialist in recommending tourist attractions",
+    description="A tourist attractions agent",
     tools=[
         google_search,
     ],
