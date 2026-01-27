@@ -1,1 +1,1 @@
-from .agent import tour_agent
+from .agent import tour_guide
