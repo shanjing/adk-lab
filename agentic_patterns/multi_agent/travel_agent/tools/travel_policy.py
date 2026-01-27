@@ -1,7 +1,8 @@
 from tools.db import SqlitePolicyService
 from pydantic import BaseModel, Field
 
-from tools.logging_utils import logger
+import logging
+logger = logging.getLogger(__name__)
 
 
 class PolicyCheckInput(BaseModel):
