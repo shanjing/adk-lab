@@ -2,7 +2,8 @@ import json
 from google.genai import types
 from typing import Iterable, List, Dict, Any
 
-from tools.logging_utils import logger
+import logging
+logger = logging.getLogger(__name__)
 
 async def dump_state(
     session_service, app_name, user_id, session_id, label="Current State"
