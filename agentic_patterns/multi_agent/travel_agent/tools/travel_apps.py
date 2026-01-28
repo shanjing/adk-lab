@@ -15,18 +15,18 @@ class HotelSearchInput(BaseModel):
 
 
 # Tools
-def get_5_day_weather(args: WeatherInput) -> dict:
+def get_5_day_weather(arguments: WeatherInput) -> dict:
     """Get a 5-day weather forecast."""
     return {
-        "city": args.city,
+        "city": arguments.city,
         "forecast": ["Sunny", "Cloudy", "Rain", "Sunny", "Windy"],
     }
 
-def search_flights(args: FlightSearchInput) -> dict:
+def search_flights(arguments: FlightSearchInput) -> dict:
     """Search for flights."""
-    return {"to": args.to_city, "price": "$450", "status": "Available"}
+    return {"to": arguments.to_city, "price": "$450", "status": "Available"}
 
 
-def search_hotels(args: HotelSearchInput) -> dict:
+def search_hotels(arguments: HotelSearchInput) -> dict:
     """Find hotels."""
-    return {"city": args.city, "hotel": "Grand ADK Hotel", "price": "$180"}
+    return {"city": arguments.city, "hotel": "Grand ADK Hotel", "price": "$180"}

@@ -7,6 +7,7 @@ from google.adk.runners import Runner
 from google.adk.sessions import DatabaseSessionService
 from google.genai import types
 
+from .config import LOCAL_LLM
 from .logging_utils import log_event, log_session_state, logger
 
 # Load the .env relative to the project root
@@ -22,7 +23,7 @@ DB_URL = f"sqlite+aiosqlite:///{DB_PATH}"
 session_service = DatabaseSessionService(db_url=DB_URL)
 
 
-def build_user_message(text: str) -> dict:
+def build_user_message(text: str) -> types.Content:
     """
     Standardizes input for the ADK runner.
     1. Role: 'user' is mandatory for LiteLLM and multi-turn routing.
@@ -31,12 +32,12 @@ def build_user_message(text: str) -> dict:
     Note:
     # Using the dictionary format is often more robust for the runner's internal mapping
     # later add support for other message types, such as images, files, etc.
-    """"
+    """
     if not text or not text.strip():
         # Fail fast on invalid input before hitting the API
         raise ValueError("User input text cannot be empty.")
 
-    return {"role": "user", "content": {"parts": [{"text": text}]}}
+    return types.Content(role="user", parts=[types.Part(text=text)])
 
 
 async def execute_agent_stream(app, input_text, initial_state=None, debug=False):
@@ -50,7 +51,6 @@ async def execute_agent_stream(app, input_text, initial_state=None, debug=False)
     Returns:
         The final response text.
     """
-    if debug:
     runner = Runner(app=app, session_service=session_service)
     session_id = str(uuid.uuid4())
     user_id = os.getenv("USER_ID", "default_user")
@@ -63,7 +63,11 @@ async def execute_agent_stream(app, input_text, initial_state=None, debug=False)
     )
     if debug:
         # 1. Inspect STARTING state
-        curr_session = await session_service.get_session(app.name, user_id, session_id)
+        curr_session = await session_service.get_session(
+            app_name=app.name,
+            user_id=user_id,
+            session_id=session_id,
+        )
         log_session_state(curr_session.state, label="PRE-FLIGHT STATE")
 
     try:
@@ -85,9 +89,13 @@ async def execute_agent_stream(app, input_text, initial_state=None, debug=False)
         raise e
 
     finally:
+        # Inspect FINAL state
         if debug:
-            # 2. Inspect FINAL state
-            final_session = await session_service.get_session(app.name, user_id, session_id)
+            final_session = await session_service.get_session(
+                app_name=app.name,
+                user_id=user_id,
+                session_id=session_id,
+            )
             log_session_state(final_session.state, label="POST-FLIGHT STATE")
 
     return "".join(final_text_parts) if final_text_parts else "(no final response text)"
