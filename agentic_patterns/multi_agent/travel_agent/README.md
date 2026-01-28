@@ -1,65 +1,79 @@
-## travel_agent : a multi agent example
-This agent demonstrates the pattern of using adk's AgentTool to call sub-agents
-Agents can derive its tool functions schemas via function interface.
-It has a sqlite session service to store sessions for replay.
-Agents also have memory for tools' validations (one trip per city policy)
+# Multi-Agent in ADK 
+This travel agent demonstrates a multi-agent system in ADK.
 
-### structure 
+Highlights:
+* The root agent (supervisor_guard) takes user query and reviews
+* Once approves delegate or call sub-agents to book trips and response to the user
+
+Stateful implementations:
+* Use a sqlite session service to store sessions for replay.
+* Agents have memory for tools' to valid and enforce "only one trip per city" policy.
+
+### Project Structure 
+Below directory layout is required for ADK UI to work properly
 ```
-travel_agent
-├── adk_agent_memory.db
-├── main.py
+travel_agent <--project's root directory
+├── main.py <--cli and Runner
 ├── README.md
-├── supervisor_guard
+├── supervisor_guard <--root_agent
 │   ├── __init__.py
 │   ├── agent.py
 │   └── sub_agents
 │       ├── __init__.py
-│       └── travel_planner
-├── tools
-│   ├── __init__.py
-│   ├── config.py
-│   ├── db.py
-│   ├── logging_utils.py
-│   ├── schemas.py
-│   ├── travel_apps.py
-│   ├── travel_policy.py
-│   └── utilities.py
-└── travel_agent_sessions.db
+│       └── travel_planner <--sub_agents
+└── tools <--tools for system, agents and helpers
+    ├── __init__.py
+    ├── config.py
+    ├── db.py
+    ├── logging_utils.py
+    ├── schemas.py
+    ├── travel_apps.py
+    ├── travel_policy.py
+    └── utilities.py
+```
+### Key Rules
+* Variable Naming: 
+  The ADK UI looks specifically for a variable named root_agent in the package root.
+* Schema Peeking: 
+  Tools must use Pydantic BaseModel in the signature (args: PolicyCheckInput)
+  for the LLM to "see" the parameter descriptions.
+* Directory Naming:
+  The agent directory name must be the same as the agent's LlmAgent.name
+* Bridge for importing: 
+  __init__.py must have local import for ADK UI to import
 
+### Core Components
+
+1. ** Root Agent Package **
 ```
-### agents
-* supervisor_guard (root_agent)
-* travel_planner (sub_agent)
+./supervisor_guard/agent.py
 ```
-root_agent = LlmAgent(
-    name="supervisor_guard",
-    model=AI_MODEL,
-    tools=[
-        check_travel_policy,
-        AgentTool(agent=travel_agent),
-    ],
-    ...)
+- Must be in the project root directory
+- Must define a 'root_agent' python variable
+
+2. **Sub-agents Directory**
 ```
+./supervisor_guard/sub_agents/travel_agent/agent.py
+./supervisor_guard/sub_agents/news_agent/agent.py
 ```
-travel_agent = LlmAgent(
-    name="travel_planner",
-    model=AI_MODEL,
-    description="A specialist in booking flights and checking weather.",
-    tools=[
-        get_5_day_weather, 
-        search_flights, 
-        search_hotels,
-        record_visit,
-    ],
-    ...)
+- Must be in the sub-directory root_agent's directory
+
+3. **Tools**
+Tools:
+- check_travel_policy, record_visit
+- get_5_day_weather, search_flights, search_hotels, record_visit,
+
+4. **Importing Tools**
+* import tools from the root agent
+```
+from tools.config import AI_MODEL
+from tools.travel_policy import check_travel_policy
+from .sub_agents.travel_planner.agent import (
+    travel_agent,
+)
 ```
 
-### tools
-* check_travel_policy, record_visit
-* get_5_day_weather, search_flights, search_hotels, record_visit,
-
-### schemas
+5. **Schemas**
 ```
 class PolicyCheckInput(BaseModel):
     user_id: str = Field(
@@ -68,13 +82,44 @@ class PolicyCheckInput(BaseModel):
     target_city: str = Field(
         ..., description="The city the user is requesting to travel to."
     )
-class WeatherInput(BaseModel):
-    city: str = Field(..., description="The city to get the weather for.")
-
-class FlightSearchInput(BaseModel):
-    to_city: str = Field(..., description="The city to fly to.")   
-
-class HotelSearchInput(BaseModel):
-    city: str = Field(..., description="The city to find a hotel in.")
 ```
+
+## Mulit-Agent Patterns
+### 1. Sub-Agent Delegation
+
+The Supervisor hands the entire conversation to the Worker. 
+The Worker talks directly to the user until it finishes.
+```
+root_agent = LlmAgent(
+    name="supervisor_guard",
+    model=AI_MODEL,
+    tools=[
+        check_travel_policy,
+        sub_agents=[travel_agent, news_agent],
+    ],
+    ...
+)
+```
+**Restriction**: 
+The ADK built-in tools can not be used in a sub-agent.
+Use AgentTool(below) instead.
+
+### 2. Agent-as-a-Tool 
+
+The Supervisor calls the Worker like a function.
+The Worker returns data, and the Supervisor decides what to tell the user.
+```
+from google.adk.tools.agent_tool import AgentTool
+root_agent = LlmAgent(
+    name="supervisor_guard",
+    model=AI_MODEL,
+    tools=[
+        check_travel_policy,
+        AgentTool(agent=travel_agent)
+    ],
+    ...
+)
+```
+
+
 
