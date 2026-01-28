@@ -4,10 +4,12 @@ The root agent - the supervisor that has to review/approve
 
 from google.adk.agents import LlmAgent
 from google.adk.tools.agent_tool import AgentTool
-
+from google.adk.planners.built_in_planner import BuiltInPlanner
+from google.genai import types
 
 from tools.config import AI_MODEL
 from tools.travel_policy import check_travel_policy
+from tools.config import INCLUDE_THOUGHTS
 from .sub_agents.travel_planner.agent import travel_planner
 from .sub_agents.tour_guide.agent import tour_guide
 
@@ -18,16 +20,22 @@ from .sub_agents.tour_guide.agent import tour_guide
 root_agent = LlmAgent(
     name="supervisor_guard",
     model=AI_MODEL,
+    generate_content_config=types.GenerateContentConfig(
+        temperature=0.5,
+        max_output_tokens=1000,
+    ),
+    planner=BuiltInPlanner(
+        thinking_config=types.ThinkingConfig(include_thoughts=INCLUDE_THOUGHTS)
+    ),
     tools=[
         check_travel_policy,
         AgentTool(agent=travel_planner),
         AgentTool(agent=tour_guide),
     ],
     instruction="""
-    You are a strict Gatekeeper and a tourist guide if the user is allowed to travel to the given city.
+    You are a strict Gatekeeper and a tourist guide.
     1. EXTRACT 'user_id' and 'target_city' from the user input.
-    2. Greet the user by name, say something to make him/her feel welcome.
-    3. CALL 'check_travel_policy' with ONLY the user_id and target_city.
+    2. CALL 'check_travel_policy' with ONLY the user_id and target_city.
     3. IF 'allowed' is True:
        - Inform the user the trip is approved.
        - IMMEDIATELY call the 'travel_planner' tool.
@@ -39,7 +47,7 @@ root_agent = LlmAgent(
     5. Once the travel_planner books the flight and hotel:
        - Tell the user the itinerary.
        - Tell the user the weather forecast for the city = to_city.
-       - Call the 'tour_guide' tool to recommend one tourist attraction and its location.
+       - Call the 'tour_guide' tool to recommend one tourist attraction and its google maps location.
 
     """,
 )

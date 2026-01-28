@@ -19,18 +19,18 @@ policy_service = SqlitePolicyService()
 
 
 # --- SUPERVISOR TOOLS ---
-def check_travel_policy(args: PolicyCheckInput) -> dict:
+def check_travel_policy(arguments: PolicyCheckInput) -> dict:
     """
     Checks if the user is allowed to travel to the target city.
     parameters:
         user_id: The ID of the user requesting travel.
         target_city: The city the user is requesting to travel to.
     """
-    is_visited = policy_service.has_visited(args.user_id, args.target_city)
+    is_visited = policy_service.has_visited(arguments.user_id, arguments.target_city)
     logger.info(
         "POLICY CHECK: User=%s, City=%s, Visited=%s",
-        args.user_id,
-        args.target_city,
+        arguments.user_id,
+        arguments.target_city,
         is_visited,
     )
 
@@ -38,22 +38,22 @@ def check_travel_policy(args: PolicyCheckInput) -> dict:
         return {
             "allowed": False,
             "reason": f"""
-            Policy Violation: You have already visited {args.target_city}.
+            Policy Violation: You have already visited {arguments.target_city}.
             We only allow one trip per city.
             """,
         }
     return {"allowed": True, "reason": "Policy Check Passed."}
 
 
-def record_visit(args: PolicyCheckInput) -> dict:
+def record_visit(arguments: PolicyCheckInput) -> dict:
     """
     Records a successful trip for the user (idempotent).
     parameters:
         user_id: The ID of the user who completed the trip booking.
         target_city: The city that was booked.
     """
-#    args = PolicyCheckInput(user_id=user_id, target_city=target_city)
-    if policy_service.has_visited(args.user_id, args.target_city):
+#    arguments = PolicyCheckInput(user_id=user_id, target_city=target_city)
+    if policy_service.has_visited(arguments.user_id, arguments.target_city):
         return {"recorded": False, "reason": "Trip already recorded."}
-    policy_service.record_visit(args.user_id, args.target_city)
+    policy_service.record_visit(arguments.user_id, arguments.target_city)
     return {"recorded": True, "reason": "Trip recorded."}

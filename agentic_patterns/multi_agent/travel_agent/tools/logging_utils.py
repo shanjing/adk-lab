@@ -13,6 +13,9 @@ THEME = {
     "err": {"fg": "red", "bold": True}
 }
 
+# Global Logger for this module
+logger = logging.getLogger(__name__)
+
 def setup_logging(debug: bool = False, model_name: str = "unknown"):
     """ADK logging configuration with version and model tracking."""
     log_level = logging.DEBUG if debug else logging.INFO
@@ -24,9 +27,6 @@ def setup_logging(debug: bool = False, model_name: str = "unknown"):
         stream=sys.stdout,
         force=True,
     )
-
-    # Global Logger for this module
-    logger = logging.getLogger(__name__)
 
     adk_ver = getattr(google.adk, "__version__", "unknown")
     litellm_ver = getattr(litellm, "__version__", "unknown")
@@ -42,7 +42,21 @@ def setup_logging(debug: bool = False, model_name: str = "unknown"):
     silence = logging.DEBUG if debug else logging.WARNING
     logging.getLogger("google.adk").setLevel(silence)
     logging.getLogger("litellm").setLevel(silence)
+
+    # Mute the specific warning about non-text parts in responses
+    logging.getLogger("google.genai.types").setLevel(logging.ERROR)
+
+    # Mute noisy internal SQL logic
     logging.getLogger("sqlalchemy").setLevel(logging.WARNING)
+    logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
+    logging.getLogger("sqlalchemy.pool").setLevel(logging.WARNING)
+    logging.getLogger("sqlalchemy.orm").setLevel(logging.WARNING)
+    
+    # Mute the underlying async driver (aiosqlite)
+    logging.getLogger("aiosqlite").setLevel(logging.WARNING)
+
+    # 'core.py' noise from aiosqlite
+    logging.getLogger("sqlite3").setLevel(logging.WARNING)
 
 async def log_event(event):
     """Processes ADK events for the CLI trace."""
