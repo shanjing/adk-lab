@@ -44,11 +44,11 @@ def _extract_final_text_from_event(event) -> str:
 
 
 async def run_agent(
-        agent_name: str,
-        input_text: str,
-        initial_state: dict | None = None,
-        debug: bool = False) -> str:
-
+    agent_name: str,
+    input_text: str,
+    initial_state: dict | None = None,
+    debug: bool = False,
+) -> str:
     loader = _agent_loader()
     agent_or_app = loader.load_agent(agent_name)
 
@@ -68,10 +68,10 @@ async def run_agent(
     user_message = _build_user_message(input_text)
 
     await session_service.create_session(
-        app_name=app.name, 
-        user_id=user_id, 
-        session_id=session_id, 
-        state=safe_initial_state
+        app_name=app.name,
+        user_id=user_id,
+        session_id=session_id,
+        state=safe_initial_state,
     )
     final_text = ""
     async for event in runner.run_async(
@@ -142,7 +142,7 @@ def run_command(agent_name: str, input_text: str | None, debug: bool) -> None:
         "environment": "development",
         "critical_server": "192.168.3.100",
         "problematic_pod": "payment-420",
-        "problematic_namespace": "payment"
+        "problematic_namespace": "payment",
     }
     final_text = asyncio.run(run_agent(agent_name, input_text, initial_state, debug))
     click.echo(final_text)

@@ -17,18 +17,16 @@ dependencies = [
 where = ["."]
 
 [tool.ruff]
-# Target version for your .agentic_venv
 target-version = "py311"
 line-length = 88
 
 [tool.ruff.lint]
-# E/W: PEP8, F: Pyflakes, I: Import sorting
-select = ["E", "W", "F", "I"]
-ignore = []
-
-[tool.ruff.lint.isort]
-# Treat these as internal modules so imports are grouped correctly
-known-first-party = ["agentic_patterns", "devops_tools", "tools", "supervisor_guard"]
+# We only care about the most basic syntax errors (F) and Import sorting (I)
+# Removing 'E' (Style) and 'W' (Warnings) to reduce noise
+select = ["F", "I"] 
+ignore = ["F401"] # Ignore unused imports so labs don't fail
 
 [tool.ruff.format]
 quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false

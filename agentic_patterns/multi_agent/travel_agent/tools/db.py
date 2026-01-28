@@ -10,6 +10,7 @@ class SqlitePolicyService:
     Manages Long-Term Memory (User Travel History).
     Acts as the 'Persistent Memory' node in the architecture diagram.
     """
+
     def __init__(self, db_path="adk_agent_memory.db"):
         self.db_path = db_path
         self._init_db()
@@ -33,8 +34,8 @@ class SqlitePolicyService:
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute(
-                "SELECT 1 FROM trips WHERE user_id = ? AND LOWER(city) = ?", 
-                (user_id, city_norm)
+                "SELECT 1 FROM trips WHERE user_id = ? AND LOWER(city) = ?",
+                (user_id, city_norm),
             )
             return cursor.fetchone() is not None
 
@@ -44,8 +45,8 @@ class SqlitePolicyService:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute(
-                    "INSERT INTO trips (user_id, city) VALUES (?, ?)", 
-                    (user_id, city_norm)
+                    "INSERT INTO trips (user_id, city) VALUES (?, ?)",
+                    (user_id, city_norm),
                 )
                 conn.commit()
             logger.info(f"MEMORY: Persisted trip to '{city}' for {user_id}")

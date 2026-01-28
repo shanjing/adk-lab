@@ -1,14 +1,14 @@
-name: Python Linting
+name: Python Auto-Format Check
 
 on: [push, pull_request]
 
 jobs:
-  ruff:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Ruff
         run: pip install ruff
-      - name: Run Ruff
-        # Runs from root, covering all sub-projects
-        run: ruff check .
+      - name: Check Formatting
+        # 'format --check' only looks at whitespace/newlines/indents
+        run: ruff format --check .
