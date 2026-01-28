@@ -7,41 +7,18 @@ This repository is an experimentation with the Google Agent Development Kit (ADK
 .
 ├── agentic_patterns
 │   ├── exception_handling
-│   │   └── robust_location_agent
 │   ├── function_calling
-│   │   ├── current_time_agent
-│   │   └── search_agent
+│   ├── multi_agent
 │   └── README.md
 ├── devops_tools
 │   ├── __init__.py
-│   ├── __pycache__
-│   │   ├── __init__.cpython-311.pyc
-│   │   └── main.cpython-311.pyc
 │   ├── common
-│   │   ├── __init__.py
-│   │   ├── __pycache__
-│   │   ├── adk_helpers.py
-│   │   ├── logging_utils.py
-│   │   └── utilities.py
-│   ├── devops_tools_data.db
 │   ├── log_analyzer
-│   │   ├── __init__.py
-│   │   ├── __pycache__
-│   │   ├── agent.py
-│   │   ├── assets
-│   │   └── README.md
 │   ├── main.py
 │   └── restart_server
-│       ├── __init__.py
-│       ├── __pycache__
-│       └── agent.py
+├── env.example
 ├── misc
 │   ├── pydantic_lab
-│   │   ├── BlogPost.py
-│   │   ├── BlogPostFieldValidator.py
-│   │   ├── BlogPostModelValidator.py
-│   │   ├── restart_server_agent
-│   │   └── User.py
 │   └── README.md
 ├── pyproject.toml
 ├── README.md
