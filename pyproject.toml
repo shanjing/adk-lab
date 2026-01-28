@@ -15,3 +15,20 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.ruff]
+# Target version for your .agentic_venv
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+# E/W: PEP8, F: Pyflakes, I: Import sorting
+select = ["E", "W", "F", "I"]
+ignore = []
+
+[tool.ruff.lint.isort]
+# Treat these as internal modules so imports are grouped correctly
+known-first-party = ["agentic_patterns", "devops_tools", "tools", "supervisor_guard"]
+
+[tool.ruff.format]
+quote-style = "double"

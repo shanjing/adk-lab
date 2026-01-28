@@ -1,11 +1,22 @@
+# Virtual Environment
+.agentic_venv/
+env/
+venv/
+
+# Python Bytecode
 __pycache__/
 *.pyc
-.venv/
-.agentic_venv/
-.db
-.env
+*.pyo
+*.pyd
+
+# Linter Cache
+.ruff_cache/
+
+# IDEs and OS
+.vscode/
+.idea/
 .DS_Store
-build/
-dist/
-*.egg-info/
-devops_tools/devops_tools_data.db
+
+# Local Agent Artifacts (from your tree)
+*.db
+*.log
