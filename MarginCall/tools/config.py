@@ -23,4 +23,6 @@ else:
 
 INCLUDE_THOUGHTS = os.getenv("INCLUDE_THOUGHTS", "false").lower() == "true"
 
+ROOT_AGENT = os.getenv("ROOT_AGENT", "SET_ROOT_AGENT_NAME_HERE")
+SUB_AGENTS = os.getenv("SUB_AGENTS", "SUB_AGENT_1,SUB_AGENT_2,SUB_AGENT_3").strip().split(",")
 # Export AI_MODEL for the Agent and AI_MODEL_NAME for the Logger

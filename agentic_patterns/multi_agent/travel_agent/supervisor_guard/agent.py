@@ -7,9 +7,8 @@ from google.adk.tools.agent_tool import AgentTool
 from google.adk.planners.built_in_planner import BuiltInPlanner
 from google.genai import types
 
-from tools.config import AI_MODEL
+from tools.config import AI_MODEL, INCLUDE_THOUGHTS
 from tools.travel_policy import check_travel_policy
-from tools.config import INCLUDE_THOUGHTS
 from .sub_agents.travel_planner.agent import travel_planner
 from .sub_agents.tour_guide.agent import tour_guide
 
