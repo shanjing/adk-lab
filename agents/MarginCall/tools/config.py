@@ -10,7 +10,7 @@ LOCAL_MODEL = os.getenv("LOCAL_AI_MODEL", "gemma3:27b")
 
 LOCAL_LLM = False
 
-# AL_MODEL_NAME is a string/lable for the logger to identify the model
+# AL_MODEL_NAME is a string/label for the logger to identify the model
 # AI_MODEL, for local llm, is the model object/wrapper for the agent
 if CLOUD_MODEL:
     # We are in Cloud Mode

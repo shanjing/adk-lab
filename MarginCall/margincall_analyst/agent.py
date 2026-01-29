@@ -8,9 +8,9 @@ from google.adk.planners.built_in_planner import BuiltInPlanner
 from google.genai import types
 
 from tools.config import AI_MODEL, INCLUDE_THOUGHTS
-from sub_agents.stock_quoter import stock_quoter
-from sub_agents.market_whisper import market_whisper
-from sub_agents.brilliant_accountant import brilliant_accountant
+from .sub_agents.stock_quoter import stock_quoter
+from .sub_agents.market_whisper import market_whisper
+from .sub_agents.brilliant_accountant import brilliant_accountant
 
 # For consistency, python variable and agent name are identical
 root_agent = LlmAgent(

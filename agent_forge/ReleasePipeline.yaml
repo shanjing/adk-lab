@@ -1,0 +1,17 @@
+# Sequential pipeline: validate → build → test → deploy
+project_name: ReleasePipeline
+pattern: sequential_pipeline
+root_agent: release_pipeline
+sub_agents:
+  - validator
+  - builder
+  - tester
+  - deployer
+
+description: |
+  DevOps release pipeline. Validator checks config and deps; builder produces artifacts;
+  tester runs suites; deployer pushes to target env. Linear chain, one step after another.
+
+user_id: DevOps
+agent_env: development
+output_dir: .

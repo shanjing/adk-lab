@@ -4,6 +4,8 @@ Market Whisper Agent
 
 from google.adk.agents import LlmAgent
 
+from tools.config import AI_MODEL
+
 # For consistency, python variable and agent name are identical
 market_whisper = LlmAgent(
     name="market_whisper",

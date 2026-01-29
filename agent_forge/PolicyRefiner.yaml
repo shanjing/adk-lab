@@ -1,0 +1,15 @@
+# Iterative refinement: draft → check → refine until compliance passes
+project_name: PolicyRefiner
+pattern: iterative_refinement
+root_agent: policy_refiner
+sub_agents:
+  - policy_drafter
+  - compliance_checker
+
+description: |
+  Finance / compliance: drafts policy text; compliance checker validates against rules.
+  Root orchestrates refine–check loop until policy passes all checks.
+
+user_id: Compliance
+agent_env: development
+output_dir: .

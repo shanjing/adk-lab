@@ -1,0 +1,16 @@
+# LLM delegation only: root + sub-agents, no external tools
+project_name: DailyBriefing
+pattern: llm_delegation_only
+root_agent: daily_briefing
+sub_agents:
+  - calendar_summarizer
+  - task_prioritizer
+  - weather_brief
+
+description: |
+  Daily reminder / morning briefing. Root delegates to calendar, tasks, and weather.
+  No external tools; LLM sub-agents only. Synthesizes a single personal briefing.
+
+user_id: Sam
+agent_env: development
+output_dir: .

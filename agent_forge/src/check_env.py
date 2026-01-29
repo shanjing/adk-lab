@@ -1,5 +1,5 @@
 """
-Environment and structure sanity check for MarginCall.
+Environment and structure sanity check ADK project.
 
 Verifies:
   1. root_agent.name matches the root agent directory name.
@@ -16,7 +16,7 @@ import os
 import sys
 from pathlib import Path
 
-# Project root = directory containing this script (MarginCall/)
+# Project root = directory containing this script
 PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))

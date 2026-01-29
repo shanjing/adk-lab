@@ -1,0 +1,15 @@
+# Generator–critic: generate runbooks, then review for completeness and safety
+project_name: RunbookStudio
+pattern: generator_critic
+root_agent: runbook_studio
+sub_agents:
+  - runbook_generator
+  - runbook_critic
+
+description: |
+  DevOps: generates runbooks from incident templates and playbooks.
+  Critic checks completeness, safety, and clarity before approval for use.
+
+user_id: SRE
+agent_env: development
+output_dir: .

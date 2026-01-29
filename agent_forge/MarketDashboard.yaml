@@ -1,0 +1,17 @@
+# Parallel fan-out / gather: fetch from multiple sources, then synthesize
+project_name: MarketDashboard
+pattern: parallel_fanout_gather
+root_agent: market_dashboard
+sub_agents:
+  - equity_analyst
+  - fx_analyst
+  - crypto_analyst
+  - news_aggregator
+
+description: |
+  Finance: parallel data gathering from equities, FX, crypto, and news.
+  Root fans out to specialists, gathers results, and synthesizes a single market briefing.
+
+user_id: Trader
+agent_env: development
+output_dir: .
