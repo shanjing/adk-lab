@@ -1,13 +1,31 @@
 # Multi-Agent in ADK 
 This travel agent demonstrates a multi-agent system in ADK.
 
-Highlights:
+Usage:
+```
+python -m main run --help
+
+python -m main run --input "Hi I'm Joe, I've never been to Paris, a 5-day trip would be great."
+```
+
+Multi_Agent workflow
 * The root agent (supervisor_guard) takes user query and reviews
 * Once approves delegate or call sub-agents to book trips and response to the user
 
 Stateful implementations:
 * Use a sqlite session service to store sessions for replay.
 * Agents have memory for tools' to valid and enforce "only one trip per city" policy.
+
+Standard Agent Module Design:
+* cli/main for CLI options --input --debug --include_thoughts
+* universal runner() for async execution of agents
+* logging that dumps each event and session state update
+* use session state to maintain key data
+
+Extensive Debugging and CLI features:
+* Switch between local llm/Ollama+LiteLlm and cloud based models
+* Detailed log when -d --deubg flag is on
+* Preflight Environment Verification
 
 ### Project Structure 
 Below directory layout is required for ADK UI to work properly

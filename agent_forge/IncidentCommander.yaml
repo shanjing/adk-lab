@@ -1,0 +1,14 @@
+project_name: IncidentCommander
+pattern: supervisor_routing
+root_agent: incident_commander
+sub_agents:
+  - k8s_specialist
+  - metrics_expert
+
+user_id: ChaosSRE
+agent_env: development
+include:
+  - main
+  - tools
+  - check_env
+output_dir: .

@@ -1,0 +1,47 @@
+# MarginCall project – agent_forge spec
+#
+# Single source of truth for structure. Run:
+#   agent_forge project.yaml [--output-dir /path]
+# from MarginCall/ (or pass path to this file). Creates project_name/ with agents + .env.
+# Layer in from agent-forge/src: main.py, tools/, check_env.py (fixed assets).
+#
+# Rendered structure:
+#   MarginCall/
+#   ├── .env                    # from env below
+#   ├── main.py                 # copy from agent-forge/src
+#   ├── check_env.py            # copy from agent-forge/src
+#   ├── tools/                  # copy from agent-forge/src
+#   └── margincall_analyst/     # root_agent package
+#       ├── __init__.py
+#       ├── agent.py
+#       └── sub_agents/
+#           ├── __init__.py
+#           ├── stock_quoter/
+#           │   ├── __init__.py
+#           │   └── agent.py
+#           ├── market_whisper/
+#           │   ├── __init__.py
+#           │   └── agent.py
+#           └── brilliant_accountant/
+#               ├── __init__.py
+#               └── agent.py
+
+pattern: supervisor_routing
+
+project_name: MarginCall
+root_agent: margincall_analyst
+sub_agents:
+  - stock_quoter
+  - market_whisper
+  - brilliant_accountant
+
+user_id: Sam
+agent_env: development
+# output_dir: .   # default; override via CLI -o
+
+# Core assets to copy from agent-forge/src (main.py, tools/, check_env.py).
+# agent_forge does not create these; layer them in after scaffold.
+include:
+  - main
+  - tools
+  - check_env

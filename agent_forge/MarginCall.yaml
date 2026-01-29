@@ -1,0 +1,19 @@
+# SequentialAgent(ParallelAgent(fetchers), Synthesizer) — StockAnalyst for MarginCall
+project_name: MarginCall
+pattern: sequential_parallel_then_synthesize
+root_agent: stock_analyst
+sub_agents:
+  - price_fetcher
+  - news_fetcher
+  - financials_fetcher
+  - technicals_fetcher
+  - report_synthesizer
+
+description: |
+  Root: SequentialAgent with two steps — (1) parallel fetch, (2) synthesize.
+  Step 1: ParallelAgent with fetchers (price, news, financials, technicals); each writes to state.
+  Step 2: Synthesizer (LlmAgent) reads those keys and produces the final report.
+
+user_id: Trader
+agent_env: development
+output_dir: .

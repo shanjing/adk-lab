@@ -1,0 +1,16 @@
+# Human-in-the-loop: propose → (human) approve → execute
+project_name: SpendApproval
+pattern: human_in_the_loop
+root_agent: spend_approval_flow
+sub_agents:
+  - expense_analyst
+  - approval_gate
+  - payout_processor
+
+description: |
+  Finance: expense analyst proposes spend; approval_gate holds for human approval;
+  payout_processor executes once approved. Pipeline layout with approval tools / policy.
+
+user_id: Finance
+agent_env: development
+output_dir: .

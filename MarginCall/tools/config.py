@@ -10,6 +10,8 @@ LOCAL_MODEL = os.getenv("LOCAL_AI_MODEL", "gemma3:27b")
 
 LOCAL_LLM = False
 
+# AL_MODEL_NAME is a string/lable for the logger to identify the model
+# AI_MODEL, for local llm, is the model object/wrapper for the agent
 if CLOUD_MODEL:
     # We are in Cloud Mode
     AI_MODEL = CLOUD_MODEL
@@ -23,4 +25,5 @@ else:
 
 INCLUDE_THOUGHTS = os.getenv("INCLUDE_THOUGHTS", "false").lower() == "true"
 
-# Export AI_MODEL for the Agent and AI_MODEL_NAME for the Logger
+ROOT_AGENT = os.getenv("ROOT_AGENT", "SET_ROOT_AGENT_NAME_HERE")
+SUB_AGENTS = [s.strip() for s in os.getenv("SUB_AGENTS", "SUB_AGENT_1,SUB_AGENT_2,SUB_AGENT_3").strip().split(",")]

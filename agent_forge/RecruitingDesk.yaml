@@ -1,0 +1,16 @@
+# Hierarchical: multi-level recruiting (screen → technical → offer)
+project_name: RecruitingDesk
+pattern: hierarchical
+root_agent: recruiting_desk
+sub_agents:
+  - resume_screener
+  - technical_evaluator
+  - offer_advisor
+
+description: |
+  Recruiting: LinkedIn-style role match and pipeline. Resume screener filters candidates;
+  technical evaluator assesses skills; offer advisor advises on comp and level. Root routes by stage.
+
+user_id: Recruiter
+agent_env: development
+output_dir: .
